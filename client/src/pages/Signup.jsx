@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { api } from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import "./pages.css";
 
 export default function Signup() {
   const [form, setForm] = useState({
@@ -14,40 +15,59 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await api.post("/auth/signup", form);
-    navigate("/login");
+
+    try {
+      await api.post("/auth/signup", form);
+      navigate("/login");
+    } catch (err) {
+      alert(err.response?.data?.message || "Signup failed");
+    }
   };
 
   return (
-    <div style={{ margin: "50px" }}>
-      <h2>Signup</h2>
+    <div className="signup-container">
+      <div className="signup-box">
+        <h2 className="signup-title">Create Account</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Name"
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-        /><br/><br/>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="signup-input"
+            placeholder="Name"
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
 
-        <input
-          placeholder="Email"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        /><br/><br/>
+          <input
+            className="signup-input"
+            placeholder="Email"
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        /><br/><br/>
+          <input
+            className="signup-input"
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
 
-        <select
-          onChange={(e) => setForm({ ...form, role: e.target.value })}
-        >
-          <option>User</option>
-          <option>Admin</option>
-        </select><br/><br/>
+          <select
+            className="signup-select"
+            onChange={(e) => setForm({ ...form, role: e.target.value })}
+          >
+            <option>User</option>
+            <option>Admin</option>
+          </select>
 
-        <button>Signup</button>
-      </form>
+          <button className="signup-btn">Sign Up</button>
+
+          <button
+            type="button"
+            className="signup-secondary"
+            onClick={() => navigate("/login")}
+          >
+            Already have an account?
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

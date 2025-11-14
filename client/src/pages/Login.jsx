@@ -2,13 +2,10 @@ import { useState } from "react";
 import { api } from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "./pages.css";
 
 export default function Login() {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
-
+  const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -16,39 +13,48 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      console.log("Sending:", form);
-
       const res = await api.post("/auth/login", form);
-
       login(res.data.token);
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
-      console.log("Login error:", err.response?.data || err);
       alert(err.response?.data?.message || "Login failed");
     }
   };
 
   return (
-    <div style={{ margin: 50 }}>
-      <h2>Login</h2>
+    <div className="login-container">
+      <div className="login-box">
 
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        /><br /><br />
+        <h2 className="login-title">Login</h2>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        /><br /><br />
+        <form onSubmit={handleSubmit}>
+          <input
+            className="login-input"
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
 
-        <button type="submit">Login</button>
-        <button onClick={() => navigate('/signup')}>Not registered?</button>
-      </form>
+          <input
+            className="login-input"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
+
+          <button className="login-btn" type="submit">Login</button>
+
+          <button
+            type="button"
+            className="login-secondary"
+            onClick={() => navigate('/signup')}
+          >
+            Not registered?
+          </button>
+        </form>
+
+      </div>
     </div>
   );
 }

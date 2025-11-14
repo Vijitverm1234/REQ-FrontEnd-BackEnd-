@@ -3,17 +3,20 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import NavBar from "./pages/Navbar";
 
 
 function App() {
   return (
+    <>
     <BrowserRouter>
       <Routes>
+
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         
         <Route
-          path="/dashboard"
+          path="/"
           element={
             <ProtectedRoute>
               <Dashboard />
@@ -22,6 +25,8 @@ function App() {
         />
       </Routes>
     </BrowserRouter>
+    
+    </>
   );
 }
 
