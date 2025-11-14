@@ -2,6 +2,8 @@
 
 > Full-stack role-based authentication project (Vite React client + Express + MongoDB server)  
 > Repo: `Vijitverm1234/REQ-FrontEnd-BackEnd-`
+> Front-end-deploy: https://req-frontend-backend-1.onrender.com
+> Back-end-deploy: https://req-frontend-backend.onrender.com
 
 ---
 
@@ -87,17 +89,14 @@ Important: copy each `.env.example` to `.env` and fill the values.
 
 Server (.env.example) - place in `server/.env.example`:
 
-    PORT=4000
-    MONGO_URI=your_mongodb_connection_string_here
-    JWT_SECRET=your_long_random_jwt_secret_here
-    JWT_EXPIRES_IN=7d
-    BCRYPT_SALT_ROUNDS=10
-    FRONTEND_URL=http://localhost:5173
+    JWT_KEY+""
+    MONGODB_URL=" "
+    FRONT_END_URL=http://localhost:5173
 
 Client (.env.example) - place in `client/.env.example` (Vite requires `VITE_` prefix):
 
-    VITE_API_URL=http://localhost:4000
-    VITE_APP_TITLE="REQ Auth App"
+    VITE_API_URL=http://localhost:3000
+  
 
 ---
 
@@ -190,3 +189,4 @@ Server:
 - src/middleware/authMiddleware.js — verifies JWT and attaches req.user
 
 ---
+
